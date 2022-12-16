@@ -2,17 +2,32 @@ from django.contrib.auth import authenticate
 from django.utils.text import gettext_lazy as _
 from rest_framework import serializers
 from rest_framework.authtoken.models import Token
+from django.db.models import Avg
 
 from accounts.models import User
+from quiz.models import Quiz
 
 
 class UserSerializer(serializers.ModelSerializer):
+    avg_score = serializers.SerializerMethodField(label='Average Score', read_only=True, method_name='get_avg_score')
+    completed_quizzes = serializers.SerializerMethodField(label='Completed Quizzes', read_only=True,
+                                                          method_name='get_completed_quizzes')
+
+    def get_avg_score(self, obj):
+        avg_score = Quiz.objects.filter(user=obj, score__isnull=False).aggregate(Avg('score'))['score__avg']
+        return 0 if avg_score is None else avg_score
+
+    def get_completed_quizzes(self, obj):
+        return Quiz.objects.filter(user=obj, score__isnull=False).count()
+
     class Meta:
         model = User
         fields = [
             'id',
             'username',
             'date_joined',
+            'avg_score',
+            'completed_quizzes'
         ]
 
 

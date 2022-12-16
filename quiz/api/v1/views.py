@@ -1,6 +1,6 @@
 from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, get_object_or_404
 
-from quiz.api.v1.permissions import MethodWisePermission
+from rest_framework.permissions import IsAuthenticated
 from quiz.api.v1.serializers import QuestionSerializer, QuizSerializer
 from core.api.pagination import StandardResultsSetPagination
 from quiz.models import Question, Quiz
@@ -8,7 +8,7 @@ from quiz.models import Question, Quiz
 
 class QuestionListCreateAPIView(ListCreateAPIView):
     pagination_class = StandardResultsSetPagination
-    permission_classes = [MethodWisePermission]
+    permission_classes = [IsAuthenticated]
     serializer_class = QuestionSerializer
 
     def get_queryset(self):
@@ -16,6 +16,7 @@ class QuestionListCreateAPIView(ListCreateAPIView):
 
 
 class QuizListCreateAPIView(ListCreateAPIView):
+    permission_classes = [IsAuthenticated]
     pagination_class = StandardResultsSetPagination
     serializer_class = QuizSerializer
 
@@ -24,6 +25,7 @@ class QuizListCreateAPIView(ListCreateAPIView):
 
 
 class QuizRetrieveUpdateAPIView(RetrieveUpdateAPIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = QuizSerializer
 
     def get_object(self):
