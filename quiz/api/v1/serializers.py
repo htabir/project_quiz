@@ -30,6 +30,10 @@ class QuestionSerializer(serializers.ModelSerializer):
                 found_answer = True
         if not found_answer:
             raise serializers.ValidationError('At least one correct answer is required')
+
+        if self.context['request'].method == 'PATCH':
+            raise serializers.ValidationError('PATCH not allowed, use PUT instead')
+
         return super().validate(attrs)
 
     def create(self, validated_data):
@@ -41,6 +45,17 @@ class QuestionSerializer(serializers.ModelSerializer):
         quiz.options.set(options)
 
         return quiz
+
+    def update(self, instance, validated_data):
+        raw_options = validated_data.pop('options')
+        instance = super().update(instance, validated_data)
+        prev_options = instance.options.all()
+        prev_options.delete()
+        options = []
+        for option in raw_options:
+            options.append(Option.objects.create(**option))
+        instance.options.set(options)
+        return instance
 
 
 class QuizSerializer(serializers.ModelSerializer):

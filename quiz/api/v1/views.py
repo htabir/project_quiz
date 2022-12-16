@@ -15,6 +15,15 @@ class QuestionListCreateAPIView(ListCreateAPIView):
         return Question.objects.all()
 
 
+class QuestionRetrieveUpdateAPIView(RetrieveUpdateAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = QuestionSerializer
+
+    def get_object(self):
+        question_id = self.request.query_params.get('id')
+        return get_object_or_404(Question, id=question_id)
+
+
 class QuizListCreateAPIView(ListCreateAPIView):
     permission_classes = [IsAuthenticated]
     pagination_class = StandardResultsSetPagination
