@@ -12,6 +12,7 @@ class UserListAPIView(ListAPIView):
     permission_classes = [IsAuthenticated]
     queryset = User.objects.all()
     serializer_class = UserSerializer
+    filterset_fields = ['id', 'username']
 
 
 class LoginAPIView(GenericAPIView):

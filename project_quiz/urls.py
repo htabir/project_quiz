@@ -7,6 +7,7 @@ from project_quiz.settings import env, MEDIA_ROOT, MEDIA_URL, STATIC_ROOT, STATI
 api_url_patterns = (
     [
         path('accounts/v1/', include('accounts.api.v1.urls')),
+        path('quiz/v1/', include('quiz.api.v1.urls')),
     ], 'api'
 )
 

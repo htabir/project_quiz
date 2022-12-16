@@ -26,6 +26,7 @@ INSTALLED_APPS = [
     # local apps
     "accounts",
     "core",
+    "quiz",
 ]
 
 MIDDLEWARE = [

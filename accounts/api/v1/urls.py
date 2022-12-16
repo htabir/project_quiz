@@ -8,7 +8,7 @@ from accounts.api.v1.views import (
 
 app_name = 'accounts-api-v1'
 urlpatterns = [
-    path('users/', UserListAPIView.as_view(), name='users'),
+    path('users/', UserListAPIView.as_view(), name='users-list'),
     path('login/', LoginAPIView.as_view(), name='login'),
     path('register/', SignUpAPIView.as_view(), name='signup'),
 ]
