@@ -45,7 +45,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"username\": \"htabir\",\n    \"password\": \"112358\"\n}\n",
+									"raw": "{\n    \"username\": \"htabir\",\n    \"password\": \"112358\"\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -661,12 +661,55 @@
 					]
 				},
 				{
+					"name": "question-update",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"options\": [\n        {\n            \"text\": \"PyCharm\",\n            \"is_correct\": true\n        },\n        {\n            \"text\": \"VSCode\",\n            \"is_correct\": true\n        },\n        {\n            \"text\": \"Something\"\n        }\n    ],\n    \"text\": \"Best IDE for django?\",\n    \"description\": \"What is the easiest one to code with?\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/quiz/v1/questions/item/?id=3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"quiz",
+								"v1",
+								"questions",
+								"item",
+								""
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "question-list",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
-								"key": "Authentication",
+								"key": "Authorization",
 								"value": "Token {{token}}",
 								"type": "text"
 							}
