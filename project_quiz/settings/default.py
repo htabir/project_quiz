@@ -7,8 +7,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 env = environ.Env()
 environ.Env.read_env((BASE_DIR / '.env').as_posix())
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
 SECRET_KEY = env.str('SECRET_KEY')
 
 INSTALLED_APPS = [
